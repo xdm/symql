@@ -157,10 +157,13 @@ Class SymQL {
 			$field_id = reset(array_keys($filter));
 			$filter = reset($filter);
 			
-			if ($field_id == 'system:id') {
-				$entry_ids[] = (int)$filter['value'];	
-				continue;
-			}
+		    if ($field_id == 'system:id') {
+                $filter['value'] = explode(',',$filter['value']);
+                foreach ($filter['value'] as $filter_value) {
+                    $entry_ids[] = (int)$filter_value;
+                }
+                continue;
+            }
 
 			// get the cached field object
 			$field = $section_fields[$field_id];
